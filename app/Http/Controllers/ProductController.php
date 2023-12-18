@@ -70,7 +70,7 @@ class ProductController extends Controller
            
             //$attr = (isset($data["category"]) && $data["category"]) ? $data["category"]  : null;
             //\DB::enableQueryLog(); 
-            $query = Product::select('products.id','products.product_title','products.primary_category_id','product_variants.slug','product_variants.alt_text','product_variants.images','product_variants.regular_price','product_variants.sale_price','product_variants.id as variant_id')->leftJoin("product_variants", "product_variants.product_id", "=", "products.id")->leftJoin("product_attributes", "product_attributes.product_id", "=", "products.id")->where(['products.is_custom' => 0,'products.estatus' => 1,'product_variants.estatus' => 1]);
+            $query = Product::select('products.id','products.product_title','products.primary_category_id','product_variants.slug','product_variants.alt_text','product_variants.images','product_variants.regular_price','product_variants.sale_price','product_variants.id as variant_id')->leftJoin("product_variants", "product_variants.product_id", "=", "products.id")->leftJoin("product_attributes", "product_attributes.product_id", "=", "products.id")->leftJoin("product_variant_variants", "product_variant_variants.product_variant_id", "=", "product_variants.id")->where(['products.is_custom' => 0,'products.estatus' => 1,'product_variants.estatus' => 1]);
             
             
             if(isset($request->keyword) && $request->keyword != ""){
@@ -81,14 +81,15 @@ class ProductController extends Controller
 
             if(isset($request->slug) && $request->slug != 0){
                 if(str_contains($request->slug, 'yellow-gold')){
-                    $query = $query->where('product_variants.term_item_id',1);
+                    $query = $query->where('product_variant_variants.attribute_term_id',1);
                 }elseif(str_contains($request->slug, 'rose-gold')){
-                    $query = $query->where('product_variants.term_item_id',3);
+                    $query = $query->where('product_variant_variants.attribute_term_id',3);
                 }else{
-                    $query = $query->where('product_variants.term_item_id',2);
+                    $query = $query->where('product_variant_variants.attribute_term_id',2);
                 }
             }else{
-                $query = $query->where('product_variants.term_item_id',2);
+               // $query = $query->where('product_variants.term_item_id',2);
+                $query = $query->whereRaw('FIND_IN_SET(?, product_attributes.terms_id)', [2]);
             }
             
             if($data["minimum_price"] && $data["maximum_price"]){
