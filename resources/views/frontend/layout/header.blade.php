@@ -371,7 +371,11 @@
                                                     ?>
                                                         <div class="submenu-box mt-4">
                                                             <div class="d-block mb-2">
+                                                                @if($sub->page_url)
                                                                 <a href="{{ $sub->page_url }}" class="menus_title menus_title_part">{{ $sub->title }}</a>
+                                                                @else
+                                                                <span class="menus_title menus_title_part">{{ $sub->title }}</span>
+                                                                @endif
                                                             </div>
                                                             
                                                              
@@ -467,7 +471,11 @@
                                                 ?>
                                                         <div class="submenu-box">
                                                             <div class="d-block mb-2">
+                                                                @if($sub->page_url)
                                                                 <a href="{{ $sub->page_url }}" class="menus_title menus_title_part">{{ $sub->title }}</a>
+                                                                @else
+                                                                <span class="menus_title menus_title_part">{{ $sub->title }}</span>
+                                                                @endif
                                                             </div>
                                                             <ul class="{{ $twocolum }}">
 
@@ -559,7 +567,11 @@
                                                 ?>
                                                         <div class="submenu-box">
                                                             <div class="d-block mb-2">
-                                                            <a href="{{ $sub->page_url }}" class="menus_title menus_title_part">{{ $sub->title }}</a>
+                                                            @if($sub->page_url)
+                                                                <a href="{{ $sub->page_url }}" class="menus_title menus_title_part">{{ $sub->title }}</a>
+                                                                @else
+                                                                <span class="menus_title menus_title_part">{{ $sub->title }}</span>
+                                                                @endif
 
                                                             </div>
                                                             <ul class="{{ $twocolum }}">

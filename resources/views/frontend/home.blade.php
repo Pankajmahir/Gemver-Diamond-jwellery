@@ -95,6 +95,7 @@ $settings = \App\Models\Settings::first();
 <div class="">
 @include('frontend.layout.header')
 
+    
 
     @if(count($banners) > 0)
         <div class="owl-carousel owl-theme home-page-slider">
@@ -129,7 +130,7 @@ $settings = \App\Models\Settings::first();
                                 <img src="{{ asset($banner->banner_thumb) }}" alt=" " loading="lazy">
                             </div>
                             <div class="">
-                                <div class="background-text-part px-3 px-lg-4 container">
+                                <div class="background-text-part px-3 px-lg-4 container " style="text-align: {{ isset($banner->direction)?$banner->direction:'left' }}">
                                     <h1 class="heading-h1 home_page_heading">{!! $banner->title !!}</h1>
                                     <div class="paragraph mt-0 mt-md-5 ">
                                     {!! $banner->description !!}
@@ -158,6 +159,8 @@ $settings = \App\Models\Settings::first();
         </div>
     @endif
     <!-- </div> -->
+
+    <x-countdown  />
     
     @if(count($categories) > 0)
     <div class="container">

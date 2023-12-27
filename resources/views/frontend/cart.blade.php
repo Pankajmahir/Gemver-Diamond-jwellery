@@ -18,6 +18,7 @@
         </div>
     </div>
 
+
     <div class="container ">
         @if(session()->has('customer')) 
         <div class="row my-5">
@@ -479,7 +480,98 @@
                     <div class="col-lg-4 px-md-3">
                         <div class="order_summary_box ms-0">
                             <div class="row order_summary_input_part">
-                                <div class="col-8 col-sm-8 ps-0">
+                                <div class="col-12 col-sm-12 ps-0">
+                                   
+                                   <div class="row mt-4">
+                                    <div class="col-8 text-start ps-0 order_table_heading">
+                                        <span class="cart_product_name mb-2" data-bs-toggle="modal" data-bs-target="#exampleModalOffer"> Coupons and Offers </span><br>
+                                        <span>save more with coupons and offers</span>
+                                    </div>
+                                    <div class="col-4 text-end order_summary_price ">
+                                        <span class="cart_product_name mb-2"  data-bs-toggle="modal" data-bs-target="#exampleModalOffer" >Offers >></span>
+                                    </div>
+                                </div>
+                                   <div class="modal fade inquiry_now_modal" id="exampleModalOffer" aria-labelledby="exampleModalLabelOffer" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable text-center">
+                                        <div class="modal-content p-3 p-md-4">
+                                            <div class="row">
+                                                <div class="col-8 col-sm-6 ps-0 text-start">
+                                                    <!-- <div class="mb-xl-4 mb-3 product_heading">bulk order inquiry</div> -->
+                                                </div>
+                                                <div class="col-4 col-sm-6 text-end pe-0">
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                            </div>
+                                            <div class="alert alert-success" id="success-alert" style="display: none;"></div>
+                                            <div class="row">
+                                                <div class="col-8 col-sm-8 ps-0">
+                                                    <input type="text" placeholder="Enter your code" class="enter_yout_code_input" name="coupon_code" id="coupon_code">
+                                                    <div id="coupon_code-error" class="invalid-feedback animated fadeInDown" style="display: none;"></div>
+                                                </div>
+                                                <div class="col-4 col-sm-4 pe-0 ps-0">
+                                                    <button type="button" class="btn btn-primary apply_btn redeem" >Apply 
+                                                        <div class="spinner-border loadericonfa spinner-border-send-inquiry" role="status" style="display:none;">
+                                                            <span class="visually-hidden">Loading...</span>
+                                                        </div>
+                                                    </button>
+                                                </div>
+
+                                                <div class="order_summary_heading text-start mt-3">
+                                                    Available Coupons
+                                                </div>
+                                                <table class="table table-bordered table-hover table_part_product mb-4 my_cart_table">
+                                                    <tbody class="">
+                                                        @foreach ($coupons as $coupon)
+                                                        <tr class="cartpage">
+                                                            <td class="cart-product-name-info1">
+                                                                <div class="row">
+                                                                    <div class="col-md-10 col-8 p-0">
+                                                                        <div class="row">
+                                                                            <div class="col-md-7 col-sm-12">
+                                                                                <div class="">
+                                                                                   <span > {{ $coupon->coupon_code }}</span> 
+                                                                                   
+                                                                                </div>
+                                                                                <div class="cart_product_specification d-block mt-1">
+                                                                                    @if($coupon->discount_type_id == 1)
+                                                                                      {{ $coupon->coupon_amount }}  <i class="fa fa-percent" aria-hidden="true"></i> Off 
+                                                                                    
+                                                                                    @elseif($coupon->discount_type_id == 2)
+                                                                                      {{ $coupon->coupon_amount }} $ Off
+                                                                                    @endif
+                                                                                </div>
+                                                                                <div class="cart_product_specification d-block mt-1">
+                                                                                    @if (isset($coupon->allow_cod) && $coupon->allow_cod!=0)
+                                                                                        Applicable on both online payment and COD.
+                                                                                    @else
+                                                                                       Applicable only online payment .
+                                                                                    @endif
+                                                                                </div>
+
+                                                                                
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td class="total_amount">
+                                                                <button type="button" class="btn btn-primary apply_btn redeemoffer" data-code="{{ $coupon->coupon_code }}">Apply 
+                                                                    <div class="spinner-border loadericonfa spinner-border-send-inquiry" role="status" style="display:none;">
+                                                                        <span class="visually-hidden">Loading...</span>
+                                                                    </div>
+                                                                </button>
+                                                            </td>
+                                                        </tr>  
+                                                        @endforeach   
+                                                    </tbody>
+                                                </table>
+
+                                           </div>
+                                        </div>
+                                   </div>
+                                </div> 
+                                </div>
+                                {{-- <div class="col-8 col-sm-8 ps-0">
                                     <input type="text" placeholder="Enter your code" class="enter_yout_code_input" name="coupon_code" id="coupon_code">
                                     <div id="coupon_code-error" class="invalid-feedback animated fadeInDown" style="display: none;"></div>
                                 </div>
@@ -489,11 +581,11 @@
                                             <span class="visually-hidden">Loading...</span>
                                         </div>
                                     </button>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="order_summary_proceed_checkout">
                                 <div class="order_summary_heading text-start">
-                                    Order Summary
+                                    Order Summary 
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-6 text-start ps-0 order_table_heading">
@@ -871,7 +963,7 @@
                                     </div>
                                 </div>
                             </div>
-                    </div>
+                    </div>              
 
     </div>
     
@@ -1009,8 +1101,58 @@
         $(btn).find('.loadericonfa').show();
 
         var coupon_code = $('#coupon_code').val();
-        //var variant_id = $(this).closest(".cartpage").find('.variant_id').val();
-    
+        var variant_id = $(this).closest(".coupon_code").val();
+        var data = {
+            '_token': $('input[name=_token]').val(),
+            "coupon_code": coupon_code,
+        };
+        $.ajax({
+            url: "{{ url('/redeem_coupon') }}",
+            type: 'Post',
+            data: data,
+            success: function (response) {
+                if(response.status == 'failed'){
+                    $(btn).prop('disabled',false);
+                    $(btn).find('.loadericonfa').hide();
+
+                    if (response.errors.coupon_code) {
+                        $('#coupon_code-error').show().text(response.errors.coupon_code);
+                    } else {
+                        $('#coupon_code-error').hide();
+                    }
+                    
+                }else if(response.status == 200){
+                    $(btn).find('.loadericonfa').hide();
+                    $(btn).prop('disabled',false);
+                    if(response.data.discount_type_id == 1){
+                    var coupon_amount_per = response.data.coupon_amount;
+                    var total  = $('.cart-maintotal-price').html();
+                    var coupon_amount = (total * coupon_amount_per)/100;
+                    
+                    }else{
+                        var coupon_amount = response.data.coupon_amount;
+                    }
+                    $('#coupan_discount_amount').val(coupon_amount);
+                    $('.coupan_discount_amount').html(coupon_amount);
+                    toastr.success(response.message,'Success',{timeOut: 5000});
+                    $("#coupon_code").val('');
+                    $(".qty").change();
+                }else{
+                    $(btn).find('.loadericonfa').hide();
+                    $(btn).prop('disabled',false);
+                    toastr.error(response.message,'Success',{timeOut: 5000});
+                }
+            }
+        });
+    });
+
+    $('.redeemoffer').click(function (e) {
+        e.preventDefault();
+        var btn = $(this);
+        $(btn).prop('disabled',true);
+        $(btn).find('.loadericonfa').show();
+
+        var coupon_code = $(this).attr("data-code");
         var data = {
             '_token': $('input[name=_token]').val(),
             "coupon_code": coupon_code,

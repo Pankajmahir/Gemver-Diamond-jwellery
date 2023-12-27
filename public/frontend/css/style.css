@@ -305,6 +305,7 @@ background-size: cover;
     .background-text-part {
         position: absolute;
         left: 50%;
+        right: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
         text-align: left;
@@ -7601,4 +7602,28 @@ width: 100%;
         width: 300px;
         /* Adjust the width as needed */
         padding: 10px !important;
+    }
+
+    .countdown {
+        list-style-type: none;
+        padding: 50px;
+        display: flex;
+        justify-content: center;
+        background-color: red;
+       }
+    
+    .countdown li {
+        text-align: center;
+        margin: 0 10px;
+    }
+    
+    .digit {
+        font-size: 2rem;
+        margin: 0;
+    }
+    
+    .text {
+        font-size: 0.9rem;
+        margin: 0;
+        text-transform: uppercase;
     }

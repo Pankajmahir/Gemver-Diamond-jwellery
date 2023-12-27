@@ -13,6 +13,7 @@ use App\Models\Settings;
 use Config;
 use Illuminate\Support\Facades\Validator;
 use App\Models\BlogBanner;
+use Carbon\Carbon;
 
 class CartController extends Controller
 {
@@ -212,8 +213,10 @@ class CartController extends Controller
         $setting = Settings::first();
         $meta_title = "Cart";
         $meta_description = "Cart";
+        $currentDate = Carbon::now();
         $BlogBanners = BlogBanner::where(['estatus' => 1,'page' => 2])->get()->ToArray();
-        return view('frontend.cart',compact('setting','BlogBanners'))->with('cart_data',$cart_data)->with(['meta_title'=>$meta_title,'meta_description'=>$meta_description]);
+        $coupons = Coupon::where(['estatus' => 1])->where('expiry_date', '>', $currentDate)->orderBy('id', 'desc')->get();
+        return view('frontend.cart',compact('setting','BlogBanners','coupons'))->with('cart_data',$cart_data)->with(['meta_title'=>$meta_title,'meta_description'=>$meta_description]);
     }
 
     public function addtocart(Request $request)
